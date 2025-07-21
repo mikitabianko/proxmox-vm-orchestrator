@@ -1,0 +1,29 @@
+---
+- name: Waiting for Cloud-Init to complete in Ubuntu 24.04.
+  hosts: all
+  connection: ssh
+  gather_facts: no          
+  ignore_unreachable: yes   
+  tasks:
+    - name: Wait for SSH connection (before cloud-init wait)
+      ansible.builtin.wait_for_connection:
+        delay: 5
+        timeout: 300
+
+    - block:
+        - name: Wait for cloud-init (1st try)
+          ansible.builtin.shell: cloud-init status --wait
+          register: cloud_init_result
+          changed_when: false
+          ignore_unreachable: true
+      always:
+        - name: Wait for SSH connection after reboot (rescue)
+          ansible.builtin.wait_for_connection:
+            delay: 5
+            timeout: 300
+
+        - name: Wait for cloud-init (2nd try after reboot)
+          ansible.builtin.shell: cloud-init status --wait
+          register: cloud_init_result
+          changed_when: false
+...

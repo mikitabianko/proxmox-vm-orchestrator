@@ -1,0 +1,15 @@
+{
+	"dependencies": {
+		"@muhlba91/pulumi-proxmoxve": "^7.2.0",
+		"@pulumi/command": "^1.1.0",
+		"@pulumi/pulumi": "^3.184.0",
+		"@pulumi/tls": "^5.2.0",
+		"sshpk": "^1.18.0"
+	},
+	"devDependencies": {
+		"@types/node": "^18.19.120",
+		"@types/nunjucks": "^3.2.6",
+		"@types/sshpk": "^1.17.4",
+		"typescript": "^5.8.3"
+	}
+}

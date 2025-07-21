@@ -1,0 +1,12 @@
+/bin/
+/node_modules/
+/workspace/
+/node_modules/
+/*.lock
+
+id_rsa*
+*.pem
+*.key
+*.pub
+
+pulumi.dev.yaml

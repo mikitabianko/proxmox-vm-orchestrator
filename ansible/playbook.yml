@@ -1,0 +1,29 @@
+---
+- name: Install and configure Docker
+  hosts: all
+  become: true
+  serial: 1
+
+  vars:
+    docker_install_python_sdk: true
+    docker_install_compose_plugin: true
+    docker_ok: true
+
+  roles:
+    - role: geerlingguy.docker
+
+  tasks:
+    - name: Install docker-compose
+      ansible.builtin.apt:
+        name: docker-compose
+
+    - name: Pull required Docker images
+      community.docker.docker_image:
+        name: "{{ item }}"
+        source: pull
+      loop: "{{ docker_images }}"
+      register: image_pull_results
+      retries: 10
+      delay: 10
+      until: image_pull_results.failed is not defined or not image_pull_results.failed
+...
