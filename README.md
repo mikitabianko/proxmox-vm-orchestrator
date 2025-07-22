@@ -8,11 +8,11 @@ We will use Pulumi’s configuration system (`pulumi config`) to define paramete
 - **Provider**: Add Proxmox API details. In `Pulumi.dev.yaml`:
 ```yml
 config:
-	...
-	proxmox:provider:
-	    endpoint: https://proxmox...
-	    insecure: true
-	    apiToken: ...
+    ...
+    proxmox:provider:
+        endpoint: https://proxmox...
+        insecure: true
+        apiToken: ...
 ```
 You can set these via the Pulumi CLI:
 ```bash
@@ -24,10 +24,10 @@ pulumi config set --secure --path "provider.apiToken" {token}
 - **SSH Keys**: Define public keys for the VM’s default user:
 ```yml
 config:
-	...
-	proxmox:keys:
-	    - ssh-rsa AAAAB3NzaC... user1@example.com
-	    - ssh-rsa AAAAB3NzaD... user2@example.com
+    ...
+    proxmox:keys:
+        - ssh-rsa AAAAB3NzaC... user1@example.com
+        - ssh-rsa AAAAB3NzaD... user2@example.com
 ```
 You can set these via the Pulumi CLI:
 ```bash
@@ -39,41 +39,41 @@ pulumi config set --path 'keys[1]' 'ssh-rsa AAAAB3NzaD... user2@example.com'
 - **VM Initialization**: Under `proxmox:VM`, specify VM parameters matching [VirtualMachineArgs](https://www.pulumi.com/registry/packages/proxmoxve/api-docs/vm/virtualmachine/#inputs). For example:
 ```yml
 config:
-	...
-	proxmox:VM:
-		initialization:
-			type: nocloud # using NoCloud for cloud-init
-			datastoreId: local
-			dns:
-				servers:
-				- 10.3.0.2
-			ipConfigs:
-				- ipv4:
-				address: 10.3.0.201/24
-				gateway: 10.3.0.2
-			userAccount:
-				username: user
-				password: password
-		nodeName: prox01
-		agent:
-			enabled: false
-			trim: true
-			type: virtio
-		cpu:
-			cores: 4
-			sockets: 2
-		type: kvm64
-		clone:
-			nodeName: prox01
-			vmId: 900
-		disks:
-			- interface: scsi0
-			datastoreId: local
-			size: 32
-			fileFormat: qcow2
-		memory:
-			dedicated: 4096
-		name: littePig
+    ...
+    proxmox:VM:
+        initialization:
+            type: nocloud # using NoCloud for cloud-init
+            datastoreId: local
+            dns:
+                servers:
+                - 10.3.0.2
+            ipConfigs:
+                - ipv4:
+                address: 10.3.0.201/24
+                gateway: 10.3.0.2
+            userAccount:
+                username: user
+                password: password
+        nodeName: prox01
+        agent:
+            enabled: false
+            trim: true
+            type: virtio
+        cpu:
+            cores: 4
+            sockets: 2
+        type: kvm64
+        clone:
+            nodeName: prox01
+            vmId: 900
+        disks:
+            - interface: scsi0
+            datastoreId: local
+            size: 32
+            fileFormat: qcow2
+        memory:
+            dedicated: 4096
+        name: littePig
 ```
 -  `clone` tells Proxmox which template (VM 900 on node prox01) to use as the base.
 - `initialization` block sets up cloud-init: using NoCloud, network config, and initial user. Pulumi will add the SSH keys into `userAccount.keys` later.
@@ -82,10 +82,10 @@ config:
 - **Docker images**: Define in config which Docker images Ansible should pull:
 ```yml
 config:
-	proxmox:docker:
-		images:
-		  - harbor...
-		  - ...  
+    proxmox:docker:
+        images:
+          - harbor...
+          - ...  
 ```
 Or via CLI:
 ```bash
