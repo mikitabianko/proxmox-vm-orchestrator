@@ -14,7 +14,6 @@ export const keysConf = cfg.requireObject<string[]>("keys");
 export const argsConf = cfg.requireObject<vm.VirtualMachineArgs>("VM");
 export const dockerConf = cfg.requireObject<Docker>("docker");
 
-
 // Combine existing keys with the new public key
 export const publicKeys = pulumi
     .all([keysConf, genKey.publicKeyOpenssh])
