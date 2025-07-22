@@ -15,7 +15,7 @@ We will use Pulumi’s configuration system (`pulumi config`) to define paramete
 ```yml
 config:
     ...
-    proxmox:provider:
+    vm:provider:
         endpoint: https://proxmox...
         insecure: true
         apiToken: ...
@@ -31,7 +31,7 @@ pulumi config set --secure --path "provider.apiToken" {token}
 ```yml
 config:
     ...
-    proxmox:keys:
+    vm:keys:
         - ssh-rsa AAAAB3NzaC... user1@example.com
         - ssh-rsa AAAAB3NzaD... user2@example.com
 ```
@@ -42,11 +42,11 @@ pulumi config set --path 'keys[1]' 'ssh-rsa AAAAB3NzaD... user2@example.com'
 ```
 > These keys will be injected via Cloud-Init so we can SSH in.
 ---
-- **VM Initialization**: Under `proxmox:VM`, specify VM parameters matching [VirtualMachineArgs](https://www.pulumi.com/registry/packages/proxmoxve/api-docs/vm/virtualmachine/#inputs). For example:
+- **VM Initialization**: Under `vm:VM`, specify VM parameters matching [VirtualMachineArgs](https://www.pulumi.com/registry/packages/proxmoxve/api-docs/vm/virtualmachine/#inputs). For example:
 ```yml
 config:
     ...
-    proxmox:VM:
+    vm:VM:
         initialization:
             type: nocloud # using NoCloud for cloud-init
             datastoreId: local
@@ -88,7 +88,7 @@ config:
 - **Docker images**: Define in config which Docker images Ansible should pull:
 ```yml
 config:
-    proxmox:docker:
+    vm:docker:
         images:
           - harbor...
           - ...  
