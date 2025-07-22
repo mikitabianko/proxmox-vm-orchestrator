@@ -2,6 +2,12 @@
 
 This repository contains the resources and code for the tutorial "How to Automatically Provision New (Proxmox) VMs Using Pulumi and Ansible". 
 
+## Prerequisites
+- Ansible 2.18.6
+- Pulumi 3.117
+- VM Template with cloudInit, which you can create by following [Making a Ubuntu 24.04 VM Template for Proxmox and CloudInit](https://github.com/UntouchedWagons/Ubuntu-CloudInit-Docs/blob/main/README.md)
+- Pnpm
+
 ## Configure VM Settings via Pulumi Config
 We will use Pulumi’s configuration system (`pulumi config`) to define parameters for the Proxmox provider, SSH keys, the VM itself, and Docker images. These values will be loaded into our Pulumi program.
 
